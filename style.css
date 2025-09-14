@@ -1,0 +1,313 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color: #ffffff;
+    --bg-color: #1a1a1a;
+    --bg-transparent: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --heading-color: #999999;
+    --accent-color: #cccccc;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color);
+}
+
+.card {
+    background: var(--bg-transparent);
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    width: 90vw;
+    max-width: 600px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    text-align: center;
+}
+
+.header {
+    margin-bottom: 3rem;
+}
+
+.name-section {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--color);
+}
+
+.codewars-badge img {
+    height: 32px;
+    border-radius: 6px;
+}
+
+.status {
+    color: var(--heading-color);
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.platforms {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.platforms-title {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.platform-item {
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    text-decoration: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.platform-item.active {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.platform-item.empty {
+    background: rgba(255, 255, 255, 0.02);
+    background-image: url(./assets/img/web.svg);
+    background-position: 0 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: default;
+}
+
+.platform-item.active:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.platform-icon {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease;
+}
+
+.platform-item:hover .platform-icon {
+    transform: scale(1.1);
+}
+
+.info-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "time"
+        "location"
+        "status"
+        "empty"
+        "quote";
+}
+
+.info-item--time {
+    grid-area: time;
+}
+
+.info-item--location {
+    grid-area: location;
+}
+
+.info-item--status {
+    grid-area: status;
+}
+
+.info-item--quote {
+    grid-area: quote;
+}
+
+.info-item--empty {
+    grid-area: empty;
+}
+
+
+.info-item {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.5rem 1rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.info-title {
+    color: #999999;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.info-value {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.time-value {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.quote-text {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #cccccc;
+    font-style: italic;
+}
+
+.quote-author {
+    font-size: 0.85rem;
+    color: #666666;
+    margin-top: 0.5rem;
+}
+
+.loading {
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.svg-icon {
+    width: 90%;
+    height: 90%;
+    fill: #000000;
+    transition: fill 0.3s ease;
+}
+
+@media (min-width: 450px) {
+    .platform-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "time location"
+            "status empty"
+            "quote quote";
+    }
+
+
+}
+
+@media(min-width: 600px) {
+    .info-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-areas: none;
+    }
+
+    .info-item {
+        grid-area: auto;
+    }
+
+    .info-item--quote {
+        grid-column: span 2;
+    }
+}
+
+@media (min-width: 800px) {
+    .platform-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .platform-item {
+        width: 72px;
+        height: 72px;
+    }
+
+    .card {
+        padding: 3rem;
+    }
+
+    .name-section {
+        flex-direction: initial;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .platform-item.empty {
+        background-position: center;
+    }
+}
+
+.celebration-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.celebration-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    color: #e0e0e0;
+}
+
+.celebration-btn:active {
+    transform: translateY(0);
+}
+
+.info-item.empty {
+    background: transparent;
+    /* прибираємо градієнт */
+    opacity: 1;
+    padding: 0;
+    /* щоб кнопка займала весь простір */
+}

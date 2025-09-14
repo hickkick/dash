@@ -105,7 +105,7 @@ body {
 
 .platform-item.empty {
     background: rgba(255, 255, 255, 0.02);
-    background-image: url(./assets/img/web.svg);
+    background-image: url(../img/web.svg);
     background-position: 0 30px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     cursor: default;

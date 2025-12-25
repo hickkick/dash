@@ -63,7 +63,8 @@ body {
     font-weight: 400;
 }
 
-.platforms {
+.platforms,
+.projects-section {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -72,7 +73,8 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.platforms-title {
+.platforms-title,
+.projects-title {
     color: var(--accent-color);
     font-size: 1.1rem;
     font-weight: 500;
@@ -310,4 +312,135 @@ body {
     opacity: 1;
     padding: 0;
     /* щоб кнопка займала весь простір */
+}
+
+/* PROJECTS */
+.projects-section {
+    margin-top: 2rem;
+}
+
+.project-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.project-header {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.project-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 1.5rem;
+}
+
+.project-item.active .project-content {
+    max-height: 500px;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.project-tech {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+}
+
+
+/*  */
+.project-header-content {
+    flex: 1;
+}
+
+.project-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.project-status {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.project-status.live {
+    background: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+}
+
+.project-status.progress {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffd54f;
+}
+
+.project-description {
+    color: #999;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.project-links a {
+    color: #cccccc;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.project-links a:hover {
+    color: #ffffff;
+}
+
+.project-meta {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.project-item.active .arrow {
+    transform: rotate(180deg);
 }

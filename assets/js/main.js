@@ -86,3 +86,88 @@ function launchConfetti() {
         });
     }, 600);
 }
+
+
+async function loadProjects() {
+    try {
+        const response = await fetch('/.netlify/functions/projects');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const projects = await response.json();
+        renderProjects(projects);
+    } catch (error) {
+        console.error('Failed to load projects:', error);
+        document.getElementById('projects-list').innerHTML =
+            '<div style="color: #999; padding: 2rem;">Failed to load projects.</div>';
+    }
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
+}
+
+function renderProjects(projects) {
+    const container = document.getElementById('projects-list');
+
+    container.innerHTML = projects.map((project, idx) => `
+    <div class="project-item" data-index="${idx}">
+      <div class="project-header">
+        <div class="project-header-content">
+          <div class="project-title-row">
+            <h3 class="project-name">${project.name}</h3>
+            <span class="project-status ${project.status}">${getStatusIcon(project.status)}</span>
+          </div>
+          <p class="project-description">${project.description}</p>
+        </div>
+        <span class="arrow">▼</span>
+      </div>
+      
+      <div class="project-content">
+        <div class="project-tech">
+          ${project.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
+        </div>
+        
+        <div class="project-links">
+          <a href="${project.github}" target="_blank" rel="noopener">GitHub →</a>
+          ${project.demo ? `<a href="${project.demo}" target="_blank" rel="noopener">Live Demo →</a>` : ''}
+        </div>
+        
+        <div class="project-meta">
+          <span>Updated ${formatDate(project.updated)}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+    // Акордеон
+    document.querySelectorAll('.project-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const wasActive = item.classList.contains('active');
+
+            // Закрити всі
+            document.querySelectorAll('.project-item').forEach(p => p.classList.remove('active'));
+
+            // Відкрити поточний (якщо не був активний)
+            if (!wasActive) item.classList.add('active');
+        });
+    });
+}
+
+function getStatusIcon(status) {
+    const icons = {
+        live: '🟢 Live',
+        progress: '🟡 In Progress',
+        archived: '🔴 Archived'
+    };
+    return icons[status] || '⚪ Unknown';
+}
+
+loadProjects()

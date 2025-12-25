@@ -21,6 +21,7 @@ body {
     align-items: center;
     justify-content: center;
     color: var(--color);
+    padding: 1rem 0;
 }
 
 .card {
@@ -63,8 +64,7 @@ body {
     font-weight: 400;
 }
 
-.platforms,
-.projects-section {
+.platforms {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -138,7 +138,8 @@ body {
     grid-template-columns: 1fr;
     grid-template-areas:
         "time"
-        "location"
+        "user-time"
+        /* "location" */
         "status"
         "empty"
         "quote";
@@ -162,6 +163,16 @@ body {
 
 .info-item--empty {
     grid-area: empty;
+}
+
+.info-item--user-time {
+    grid-area: user-time;
+}
+
+.info-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 0.25rem;
 }
 
 
@@ -230,7 +241,7 @@ body {
     .info-grid {
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
-            "time location"
+            "time user-time"
             "status empty"
             "quote quote";
     }
@@ -315,8 +326,19 @@ body {
 }
 
 /* PROJECTS */
+/* ========== PROJECTS SECTION ========== */
+
 .projects-section {
     margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.projects-title {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .project-item {
@@ -325,58 +347,43 @@ body {
     border-radius: 16px;
     margin-bottom: 1rem;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-item:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .project-header {
     padding: 1.5rem;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    transition: all 0.2s ease;
 }
 
 .project-header:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
 }
 
-.project-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding: 0 1.5rem;
-}
-
-.project-item.active .project-content {
-    max-height: 500px;
-    padding: 0 1.5rem 1.5rem;
-}
-
-.project-tech {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-}
-
-.tech-tag {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-}
-
-
-/*  */
 .project-header-content {
-    flex: 1;
+    width: 100%;
 }
 
 .project-title-row {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.project-title-group {
+    display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
 }
 
 .project-name {
@@ -391,56 +398,211 @@ body {
     padding: 0.25rem 0.75rem;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.08);
+    white-space: nowrap;
+    transition: all 0.2s ease;
 }
 
 .project-status.live {
-    background: rgba(76, 175, 80, 0.2);
+    background: rgba(76, 175, 80, 0.15);
     color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.3);
 }
 
 .project-status.progress {
-    background: rgba(255, 193, 7, 0.2);
+    background: rgba(255, 193, 7, 0.15);
     color: #ffd54f;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.project-status.archived {
+    background: rgba(244, 67, 54, 0.15);
+    color: #e57373;
+    border: 1px solid rgba(244, 67, 54, 0.3);
 }
 
 .project-description {
     color: #999;
     font-size: 0.95rem;
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0;
 }
 
+/* SVG Arrow */
+.arrow {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #666;
+    margin-top: 2px;
+}
+
+.arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+.project-item.active .arrow {
+    transform: rotate(180deg);
+    color: #999;
+}
+
+/* Accordion Content - плавна анімація */
+.project-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.3s ease;
+    opacity: 0;
+    padding: 0 1.5rem;
+}
+
+.project-item.active .project-content {
+    max-height: 600px;
+    padding: 0 1.5rem 1.5rem;
+    opacity: 1;
+}
+
+/* Tech tags */
+.project-tech {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.1rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 0.4s ease 0.1s both;
+}
+
+.project-item:not(.active) .project-tech {
+    animation: none;
+}
+
+.tech-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.35rem 0.85rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.2s ease;
+}
+
+.tech-tag:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Project links with arrow animation */
 .project-links {
     display: flex;
-    gap: 1rem;
-    margin: 1rem 0;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    animation: fadeInUp 0.4s ease 0.2s both;
+}
+
+.project-item:not(.active) .project-links {
+    animation: none;
 }
 
 .project-links a {
     color: #cccccc;
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    position: relative;
+}
+
+.project-links a::after {
+    content: '→';
+    display: inline-block;
+    transition: transform 0.2s ease;
 }
 
 .project-links a:hover {
     color: #ffffff;
 }
 
+.project-links a:hover::after {
+    transform: translateX(4px);
+}
+
+/* Meta info */
 .project-meta {
     font-size: 0.85rem;
     color: #666;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+    animation: fadeInUp 0.4s ease 0.3s both;
 }
 
-.arrow {
-    transition: transform 0.3s ease;
-    color: #666;
-    font-size: 1.2rem;
+.project-item:not(.active) .project-meta {
+    animation: none;
 }
 
-.project-item.active .arrow {
-    transform: rotate(180deg);
+/* Fade in animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .project-title-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .project-name {
+        font-size: 1.1rem;
+    }
+
+    .project-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .project-links {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .arrow {
+        margin-top: 0;
+    }
+}
+
+
+.info-item--status .info-value {
+    display: inline-block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.info-item--status .info-value {
+    animation: fadeIn 0.5s ease;
 }

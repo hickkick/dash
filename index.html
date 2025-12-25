@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<body>
+<body class="body">
     <div class="card">
         <div class="header">
             <div class="name-section">
@@ -79,27 +79,29 @@
             </div>
         </div>
 
-        <div class="projects-section">
-            <div class="projects-title">Projects</div>
-            <div class="projects-list" id="projects-list">
-                <!-- Генерується JS -->
-            </div>
-        </div>
+
 
         <div class="info-grid">
             <div class="info-item info-item--time">
                 <div class="info-title">Current Time</div>
                 <div class="info-value time-value" id="current-time">--:--</div>
+                <div class="info-subtitle" id="time-location">Prague, CZ</div>
             </div>
 
-            <div class="info-item info-item--location">
-                <div class="info-title">Location</div>
-                <div class="info-value">Europe, CZ</div>
+            <div class="info-item info-item--user-time">
+                <div class="info-title">Your Time Zone</div>
+                <div class="info-value time-value" id="user-time">--:--</div>
+                <div class="info-subtitle" id="user-timezone">Detecting...</div>
             </div>
+
+            <!-- <div class="info-item info-item--location">
+                <div class="info-title">My Location</div>
+                <div class="info-value">Prague, CZ</div>
+            </div> -->
 
             <div class="info-item info-item--status">
                 <div class="info-title">Status</div>
-                <div class="info-value">🧠 Learning</div>
+                <div class="info-value" id="current-status">🧠 Learning</div>
             </div>
 
             <div class="info-item info-item_span-2 info-item--quote">
@@ -113,6 +115,13 @@
                 <button class="celebration-btn" onclick="launchConfetti()">
                     mood
                 </button>
+            </div>
+        </div>
+
+        <div class="projects-section">
+            <div class="projects-title">Projects</div>
+            <div class="projects-list" id="projects-list">
+                <!-- Генерується JS -->
             </div>
         </div>
     </div>

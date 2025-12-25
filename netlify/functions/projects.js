@@ -2,13 +2,18 @@
 const projectMeta = {
     'dumpling': {
         tech: ['Ruby', 'Roda', 'PostgreSQL', 'Telegram API'],
-        status: 'archived',
+        status: 'progress',
         featured: false
     },
     'w_new': {
         tech: ['Sinatra', 'Ruby', 'PostgreSQL', 'SQlite3', 'Spotify API'],
         status: 'live',
         featured: true
+    },
+    'cipher': {
+        tech: ['JS', 'html/css', 'crypto-js', 'tailwind'],
+        status: 'archived',
+        featured: false
     }
 };
 

@@ -227,8 +227,8 @@ body {
 }
 
 .svg-icon {
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
     fill: #000000;
     transition: fill 0.3s ease;
 }
